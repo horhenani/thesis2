@@ -1,0 +1,428 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+  <title>BSCS 4E Thesis</title>
+
+  <link rel="stylesheet" href="dist/reset.css" />
+  <link rel="stylesheet" href="dist/reveal.css" />
+  <link rel="stylesheet" href="dist/theme/white.css" />
+  <!-- <link rel="stylesheet" href="dist/theme/black.css" /> -->
+
+  <!-- Theme used for syntax highlighted code -->
+  <link rel="stylesheet" href="plugin/highlight/monokai.css" />
+</head>
+<style type="text/css">
+  .tricykol-title {
+    font-size: 3em;
+    font-weight: bold;
+    transition: margin-top 0.5s ease;
+  }
+
+  .subtitle {
+    font-size: 1.5em;
+    transition:
+      opacity 0.5s ease,
+      display 0.5s step-end;
+  }
+
+  .reveal .slides section {
+    transition-duration: 0.5s;
+  }
+
+  .reveal>.slides>section>h2 {
+    text-align: left;
+  }
+
+  .reveal>.slides>section>h1 {
+    text-align: left;
+  }
+
+  .reveal>.slides>section>.container {
+    display: grid;
+    grid-template-columns: 1fr 50px 1fr;
+    grid-template-rows: auto;
+    grid-template-areas: "col1 col2 col3";
+  }
+
+  .reveal>.slides>section>.container>.col1 {
+    grid-area: col1;
+  }
+
+  .reveal>.slides>section>.container>.col2 {
+    grid-area: col2;
+  }
+
+  .reveal>.slides>section>.container>.col3 {
+    grid-area: col3;
+  }
+
+  .reveal>.slides>section>.container>.cols>.obj>p {
+    font-size: 1.1rem;
+    font-weight: bold;
+    text-wrap: wrap;
+  }
+
+  .reveal>.slides>section>.container>.col1>.obj>p {
+    text-align: right;
+  }
+
+  .reveal>.slides>section>.container>.col3>.obj>p {
+    text-align: left;
+  }
+
+  .reveal>.slides>section>.container>.col1 {
+    padding-left: 50px;
+  }
+
+  .reveal>.slides>section>.container>.col2>.line {
+    height: 600px;
+    width: 3px;
+    background-color: #4a4a4a;
+    margin: 0;
+  }
+
+  .reveal>.slides>section>.container>.col2>.bullet {
+    width: 15px;
+    height: 15px;
+    border: 3px solid #4a4a4a;
+    border-radius: 100%;
+    background-color: #fff;
+    position: absolute;
+  }
+
+  .reveal>.slides>section>.container>.col2>.b1 {
+    top: 128px;
+    left: 447px;
+  }
+
+  .reveal>.slides>section>.container>.col2>.b2 {
+    top: 213px;
+    left: 447px;
+  }
+
+  .reveal>.slides>section>.container>.col2>.b3 {
+    top: 310px;
+    left: 447px;
+  }
+
+  .reveal>.slides>section>.container>.col2>.b4 {
+    top: 420px;
+    left: 447px;
+  }
+
+  .reveal>.slides>section>.container>.col2>.b5 {
+    top: 500px;
+    left: 447px;
+  }
+
+  .reveal>.slides>section>.container>.col2>.b6 {
+    top: 590px;
+    left: 447px;
+  }
+
+  .reveal>.slides>section>.container>.col1 {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 40px 1fr 40px 1fr 100px;
+    grid-template-areas:
+      "obj1"
+      "."
+      "obj3"
+      "."
+      "obj5"
+      ".";
+  }
+
+  .reveal>.slides>section>.container>.col1>.obj1 {
+    grid-area: obj1;
+  }
+
+  .reveal>.slides>section>.container>.col1>.obj3 {
+    grid-area: obj3;
+  }
+
+  .reveal>.slides>section>.container>.col1>.obj5 {
+    grid-area: obj5;
+  }
+
+  .reveal>.slides>section>.container>.col3 {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 90px 1fr 50px 1fr 30px 1fr;
+    grid-template-areas:
+      "."
+      "obj2"
+      "."
+      "obj4"
+      "."
+      "obj6";
+  }
+
+  .reveal>.slides>section>.container>.col3>.obj2 {
+    grid-area: obj2;
+  }
+
+  .reveal>.slides>section>.container>.col3>.obj4 {
+    grid-area: obj4;
+  }
+
+  .reveal>.slides>section>.container>.col3>.obj6 {
+    grid-area: obj6;
+  }
+
+  .reveal>.slides>section>.container>.cols>.obj {
+    padding: 20px;
+    text-wrap: pretty;
+    width: 300px;
+  }
+
+  #title-footer {
+    position: fixed;
+    bottom: 0px;
+    left: 0;
+    right: 0;
+    height: 30px;
+    padding: 25px 5px 5px 5px;
+    z-index: 20;
+    font-size: 18px;
+    text-align: center;
+    /* background: rgba(255,255,255,0.1); */
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    color: #333;
+    margin: 0;
+  }
+
+  section>.rrlmain>.subrrl {
+    text-transform: lowercase;
+  }
+
+  section>.rrlmain>.subrrl>li {
+    text-transform: lowercase;
+  }
+</style>
+
+<body>
+  <footer id="title-footer"></footer>
+  <div class="reveal">
+    <div class="slides" style="text-align: left;">
+
+      <section>
+        <h1>Homer </h1>
+        <h5>
+          Your Trusted Platform for Filipino Home Service Professionals
+        </h5>
+        <p>A Digital Solution for the Filipino Home Service Sector</p>
+      </section>
+
+      <section>
+        <h2>Introduction</h2>
+        <ul>
+          <li>Informal sector plays a significant role in the Philippine economy</li>
+          <li>Traditional hiring process for home services is inefficient</li>
+          <li>Opportunity to leverage technology for improved service delivery</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Problem Statement</h2>
+        <ul>
+          <li>Lack of centralized platform for connecting clients and service providers</li>
+          <li>Inconsistent service quality and pricing</li>
+          <li>Safety concerns for both clients and service providers</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Objectives</h2>
+        <ul>
+          <li>Develop a user-centered digital platform for home services</li>
+          <li>Improve efficiency in connecting clients with service providers</li>
+          <li>Enhance service quality through feedback and rating systems</li>
+          <li>Implement safety measures and secure payment gateways</li>
+          <li>Promote digital literacy </li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Significance of the Study</h2>
+        <ul>
+          <li>Addresses inefficiencies in the home service sector</li>
+          <li>Contributes to the formalization of informal labor</li>
+          <li>Enhances economic opportunities for service providers</li>
+          <li>Provides a model for digital innovation in emerging economies</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Review of Related Literature</h2>
+      </section>
+
+      <section>
+        <h2>Digital Transformation in Home Services</h2>
+        <ul>
+          <li>Rise of on-demand service applications</li>
+          <li>Examples: Home Repairs (Oman), Domestic Android Application (India)</li>
+          <li>Key features: User-friendly interfaces, GPS integration, real-time feedback</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Improving Service Quality and Accountability</h2>
+        <ul>
+          <li>Importance of feedback and rating systems</li>
+          <li>Examples: Mr. Right (India), SerbisyoPH (Philippines)</li>
+          <li>Benefits: Incentivizes high-quality service, fosters trust</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Ensuring Safety and Security</h2>
+        <ul>
+          <li>Addressing risks in informal labor transactions</li>
+          <li>Key features: Identity verification, background checks</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Promoting Financial Inclusion and Digital Literacy</h2>
+        <ul>
+          <li>Integrating secure payment systems</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Global Trends and Local Adaptation</h2>
+        <ul>
+          <li>Adapting global best practices to Filipino context</li>
+          <li>Addressing local challenges: Internet access, digital literacy, trust</li>
+          <li>Opportunity for "Homer" to fill market gaps</li>
+        </ul>
+      </section>
+
+
+      <section data-auto-animate data-auto-animate-duration=".5">
+        <h1>Methodology</h1>
+      </section>
+      <section data-auto-animate data-auto-animate-duration=".5">
+        <h1 style="font-size: 3rem; margin-top: -100px"> Methodology</h1>
+        <h3>Research Design</h3>
+        <ul>
+          <li>Descriptive and developmental research approach</li>
+          <li>Rapid Application Development (RAD) methodology</li>
+        </ul>
+      </section>
+
+      <section>
+        <h3>Scope and Limitations</h3>
+        <ul>
+          <li>Focus on urban areas in the Philippines</li>
+          <li>Limited to smartphone users with internet access</li>
+          <li>May not fully represent rural or less technologically advanced regions</li>
+        </ul>
+      </section>
+
+      <section>
+        <h3>Tools for Web App and PWA Development</h3>
+        <ul>
+          <li>Progressive Web Application (PWA) technology</li>
+          <li>Web technologies (HTML, CSS, JavaScript)</li>
+          <li>Geolocation services</li>
+          <li>Real-time scheduling systems</li>
+          <li>Secure payment gateways</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Expected Outcomes</h2>
+        <ul>
+          <li>Improved efficiency in home service transactions</li>
+          <li>Enhanced income stability for service providers</li>
+          <li>Better service quality and accountability</li>
+          <li>Increased safety and security for all users</li>
+          <li>Promotion of digital literacy and financial inclusion</li>
+        </ul>
+      </section>
+
+
+
+      <section data-auto-animate data-auto-animate-duration=".5" data-auto-animate-restart>
+        <h1 style="text-align: left">Page Templates</h1>
+      </section>
+
+      <section data-auto-animate data-auto-animate-duration=".5">
+        <h1 style="text-align: left; font-size: 1.8rem; margin-top: -10px">
+          Page Templates
+        </h1>
+        <div style="display: flex; justify-content: space-evenly">
+          <div style="margin-right: 20px; line-height: 1.8">
+            <ul style="font-size: 1.8rem">
+              <li>Homepage</li>
+              <li class="fragment fade-up">Create Client/Service Provider Account</li>
+              <li class="fragment fade-up">Login Page</li>
+              <li class="fragment fade-up">Service Provider/Client Dashboards</li>
+              <li class="fragment fade-up">Service Booking Flow</li>
+              <li class="fragment fade-up">Job Mangement</li>
+              <li class="fragment fade-up">Payment and Rating</li>
+            </ul>
+          </div>
+
+          <div style="margin-top: -30px; margin-right: 30px">
+            <iframe src="mockups/homepage.html" width="380" height="660" style="border: none"></iframe>
+          </div>
+        </div>
+      </section>
+
+
+
+
+      <section>
+        <h2>Thank You</h2>
+        <p>Questions?</p>
+      </section>
+    </div>
+  </div>
+
+  <script src="dist/reveal.js"></script>
+  <script src="plugin/notes/notes.js"></script>
+  <script src="plugin/markdown/markdown.js"></script>
+  <script src="plugin/highlight/highlight.js"></script>
+  <script>
+    // More info about initialization & config:
+    // - https://revealjs.com/initialization/
+    // - https://revealjs.com/config/
+    Reveal.initialize({
+      hash: true,
+
+      transition: "slide", // none/fade/slide/convex/concave/zoom
+      // Learn about plugins: https://revealjs.com/plugins/
+      plugins: [RevealMarkdown, RevealHighlight, RevealNotes],
+    });
+
+    var title_footer = {
+      title: "Homer",
+      initialize: function () {
+        var footer = document.getElementById("title-footer");
+        Reveal.addEventListener(
+          "slidechanged",
+          function (event) {
+            var currentSlide = Reveal.isFirstSlide();
+            if (currentSlide == true) {
+              footer.innerHTML = "";
+            } else {
+              footer.innerHTML = this.title;
+            }
+          }.bind(this),
+        );
+      },
+    };
+
+    // Initialize the footer
+    title_footer.initialize();
+  </script>
+</body>
+
+</html>

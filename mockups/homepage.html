@@ -1,0 +1,1234 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tricykol - Interactive Mockup</title>
+    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    />
+    <script src="https://unpkg.com/htmx.org@2.0.2"></script>
+    <script
+      src="https://unpkg.com/alpinejs@3.13.1/dist/cdn.min.js"
+      defer
+    ></script>
+    <!-- <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY"></script> -->
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Arial", sans-serif;
+      }
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        background-color: transparent;
+      }
+      .mobile-container {
+        width: 320px;
+        height: 580px;
+        background-color: white;
+        border-radius: 20px;
+        overflow: hidden;
+        position: relative;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+      }
+      .screen {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        transition: transform 0.3s ease-in-out;
+      }
+      .header {
+        background-color: #4a4a4a;
+        color: white;
+        padding: 30px 20px;
+        text-align: center;
+        height: auto;
+      }
+      .content {
+        background-color: #f0f0f0;
+        padding: 30px 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        height: calc(100% - 140px);
+        overflow-y: auto;
+      }
+      .logo {
+        width: 108px;
+        height: 110px;
+        background-color: white;
+        border-radius: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 28px;
+        font-weight: bold;
+        color: #007bff;
+        position: absolute;
+        top: 15%;
+        right: 32%;
+      }
+      .logo > img {
+        width: 120px;
+        height: 120px;
+        border-radius: 100%;
+        border: 5px solid gray;
+      }
+      h1 {
+        font-size: 1.5rem;
+        padding-bottom: 40px;
+      }
+      p {
+        font-size: 0.8rem;
+        text-align: center;
+        margin-bottom: 20px;
+        color: #666;
+      }
+
+      .btn {
+        display: block;
+        width: 60%;
+        padding: 12px;
+        background-color: #6C8DF8;
+        color: #000;
+        text-align: center;
+        border: 2px solid #4a4a4a;
+        border-radius: 25px;
+        margin-bottom: 20px;
+        font-size: 12px;
+        cursor: pointer;
+        transition:
+          background-color 0.3s,
+          transform 0.1s;
+      }
+      .btn:hover {
+        background-color: #0056b3;
+        color: white;
+      }
+      .btn:active {
+        transform: scale(0.98);
+      }
+      .btn-outline {
+        background-color: white;
+        color: #4a4a4a;
+        border: 2px solid #4a4a4a;
+      }
+      .btn-outline:hover {
+        background-color: #4a4a4a;
+        color: #fff;
+      }
+      .footer {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: #f0f0f0;
+        text-align: center;
+        padding: 10px;
+        font-size: 12px;
+        color: #666;
+      }
+      .input-field {
+        width: 100%;
+        padding: 15px;
+        margin-bottom: 15px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 16px;
+      }
+      select {
+        width: 100%;
+        padding: 15px;
+        margin-bottom: 15px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 16px;
+      }
+
+      select > option {
+        position: absolute;
+        bottom: -300px;
+        left: 100;
+      }
+
+      .back-btn {
+        /* position: absolute; */
+        /* top: 20px; */
+        /* left: 20px; */
+        background: none;
+        border: none;
+        color: white;
+        font-size: 18px;
+        cursor: pointer;
+      }
+
+      .button-container {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 20px;
+      }
+      .slide-enter-right {
+        transform: translateX(100%);
+      }
+      .slide-enter-right-active {
+        transform: translateX(0);
+        transition: transform 0.3s ease-out;
+      }
+      .slide-leave-right {
+        transform: translateX(0);
+      }
+      .slide-leave-right-active {
+        transform: translateX(100%);
+        transition: transform 0.3s ease-in;
+      }
+      .slide-enter-left {
+        transform: translateX(-100%);
+      }
+      .slide-enter-left-active {
+        transform: translateX(0);
+        transition: transform 0.3s ease-out;
+      }
+      .slide-leave-left {
+        transform: translateX(0);
+      }
+      .slide-leave-left-active {
+        transform: translateX(-100%);
+        transition: transform 0.3s ease-in;
+      }
+
+      .map-container {
+        width: 100%;
+        height: 200px;
+        margin-bottom: 20px;
+      }
+      iframe {
+        margin-top: -20px;
+        margin-bottom: 7px;
+        width: 280px;
+        height: 350px;
+        border-radius: 5px;
+      }
+
+      /***** MODAL DIALOG ****/
+      #modal {
+        /* Underlay covers entire screen. */
+        /* position: absolute; */
+        top: 0px;
+        bottom: 0px;
+        left: 0px;
+        right: 0px;
+        z-index: 1000;
+        background-color: rgba(0, 0, 0, 0.6);
+        width: 100%;
+        height: 100%;
+
+        /* Flexbox centers the .modal-content vertically and horizontally */
+        display: none;
+        /* flex-direction: column; */
+        align-items: center;
+        justify-content: center;
+
+        /* Animate when opening */
+        animation-name: fadeIn;
+        animation-duration: 150ms;
+        animation-timing-function: ease;
+      }
+
+      #modal > .modal-underlay {
+        /* underlay takes up the entire viewport. This is only
+	required if you want to click to dismiss the popup */
+        position: absolute;
+        z-index: -1;
+        top: 0px;
+        bottom: 0px;
+        left: 0px;
+        right: 0px;
+      }
+
+      #modal > .modal-content {
+        /* Position visible dialog near the top of the window */
+        /* margin-top: 10vh; */
+
+        /* Sizing for visible dialog */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 80%;
+        max-width: 600px;
+
+        /* Display properties for visible dialog*/
+        border: solid 1px #999;
+        border-radius: 8px;
+        box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.3);
+        background-color: white;
+        padding: 20px;
+
+        /* Animate when opening */
+        animation-name: zoomIn;
+        animation-duration: 150ms;
+        animation-timing-function: ease;
+      }
+
+      #modal.closing {
+        /* Animate when closing */
+        animation-name: fadeOut;
+        animation-duration: 150ms;
+        animation-timing-function: ease;
+      }
+
+      #modal.closing > .modal-content {
+        /* Animate when closing */
+        animation-name: zoomOut;
+        animation-duration: 150ms;
+        animation-timing-function: ease;
+      }
+
+      #ridermodal {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        /* justify-content: center; */
+        /* align-items: center; */
+      }
+
+      @keyframes fadeIn {
+        0% {
+          opacity: 0;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+
+      @keyframes fadeOut {
+        0% {
+          opacity: 1;
+        }
+        100% {
+          opacity: 0;
+        }
+      }
+
+      @keyframes zoomIn {
+        0% {
+          transform: scale(0.9);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+
+      @keyframes zoomOut {
+        0% {
+          transform: scale(1);
+        }
+        100% {
+          transform: scale(0.9);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      class="mobile-container"
+      x-data="{ currentScreen: 'welcome', direction: 'right' }"
+    >
+      <!-- Welcome Screen -->
+      <div
+        class="screen"
+        x-show="currentScreen === 'welcome'"
+        x-transition:enter="slide-enter-right slide-enter-right-active"
+        x-transition:enter-start="slide-enter-right"
+        x-transition:enter-end="slide-enter-right-active"
+        x-transition:leave="slide-leave-right slide-leave-right-active"
+        x-transition:leave-start="slide-leave-right"
+        x-transition:leave-end="slide-leave-right-active"
+      >
+        <div class="header" style="height: 28%">
+          <div class="logo">
+            <img src="logo.png" alt="" />
+          </div>
+        </div>
+        <div class="content">
+          <h1 style="padding: 40px 0 10px 0; color: #010">
+            Welcome to Homer
+          </h1>
+          <p>
+            Your Trusted Platform for Filipino Home Service Professionals
+            <br />
+          </p>
+          <p style="font-size: 0.7rem; margin-bottom: -8px; padding-top: 20px">
+            Choose how you want to use our app:
+          </p>
+          <div class="button-container">
+            <button
+              class="btn"
+              @click="currentScreen = 'passenger'; direction = 'right'"
+            >
+              I'm a Client
+            </button>
+            <button
+              class="btn btn-outline"
+              @click="currentScreen = 'rider'; direction = 'right'"
+            >
+              I'm a Service Provider
+            </button>
+          </div>
+        </div>
+        <div class="footer" style="height: 80px; margin-bottom: -25px">
+          <p style="font-size: 0.7rem">
+            By continuing, you agree to our
+            <a style="color: #4a4a4a" href="#"
+              >Terms of Service and Privacy Policy</a
+            >.
+          </p>
+        </div>
+      </div>
+
+      <!-- Passenger Screen -->
+      <div
+        class="screen"
+        x-show="currentScreen === 'passenger'"
+        x-transition:enter="slide-enter-right slide-enter-right-active"
+        x-transition:enter-start="slide-enter-right"
+        x-transition:enter-end="slide-enter-right-active"
+        x-transition:leave="slide-leave-right slide-leave-right-active"
+        x-transition:leave-start="slide-leave-right"
+        x-transition:leave-end="slide-leave-right-active"
+      >
+        <div class="header">
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              margin-top: -17px;
+              padding-bottom: 20px;
+              width: 100%;
+            "
+          >
+            <button
+              class="back-btn"
+              @click="currentScreen = 'welcome'; direction = 'left'"
+            >
+              <span class="material-symbols-outlined"> arrow_back </span>
+            </button>
+
+            <span class="material-symbols-outlined"> more_vert </span>
+          </div>
+
+          <h1 style="padding: 15px 0">Client Account</h1>
+        </div>
+        <div class="content">
+          <input type="text" class="input-field" placeholder="Username" />
+          <input type="password" class="input-field" placeholder="Password" />
+          <div class="button-container">
+            <button
+              class="btn"
+              @click="currentScreen = 'passengerDashboard'; direction = 'right'"
+            >
+              Log In
+            </button>
+            <button
+              class="btn btn-outline"
+              @click="currentScreen = 'passengerSignup'; direction = 'right'"
+            >
+              Create Account
+            </button>
+            <a style="font-size: 0.7rem; color: gray" href="#"
+              >Forgot Password?</a
+            >
+          </div>
+        </div>
+      </div>
+      <!-- Rider Screen -->
+      <div
+        class="screen"
+        x-show="currentScreen === 'rider'"
+        x-transition:enter="slide-enter-right slide-enter-right-active"
+        x-transition:enter-start="slide-enter-right"
+        x-transition:enter-end="slide-enter-right-active"
+        x-transition:leave="slide-leave-left slide-leave-left-active"
+        x-transition:leave-start="slide-leave-left"
+        x-transition:leave-end="slide-leave-left-active"
+      >
+        <div class="header">
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              margin-top: -17px;
+              padding-bottom: 20px;
+              width: 100%;
+            "
+          >
+            <button
+              class="back-btn"
+              @click="currentScreen = 'welcome'; direction = 'left'"
+            >
+              <span class="material-symbols-outlined"> arrow_back </span>
+            </button>
+          </div>
+
+          <h1 style="padding: 15px 0">Service Provider Account</h1>
+        </div>
+        <div class="content">
+          <input type="text" class="input-field" placeholder="Username" />
+          <input type="password" class="input-field" placeholder="Password" />
+          <div class="button-container">
+            <button
+              class="btn"
+              @click="currentScreen = 'riderDashboard'; direction = 'right'"
+            >
+              Log In
+            </button>
+            <button
+              class="btn btn-outline"
+              @click="currentScreen = 'riderSignup'; direction = 'right'"
+            >
+              Create Account
+            </button>
+            <a style="font-size: 0.7rem; color: gray" href="#"
+              >Forgot Password?</a
+            >
+          </div>
+        </div>
+      </div>
+
+      <!-- Passenger Signup Screen -->
+      <div
+        class="screen"
+        x-show="currentScreen === 'passengerSignup'"
+        x-transition:enter="slide-enter-right slide-enter-right-active"
+        x-transition:enter-start="slide-enter-right"
+        x-transition:enter-end="slide-enter-right-active"
+        x-transition:leave="slide-leave-left slide-leave-left-active"
+        x-transition:leave-start="slide-leave-left"
+        x-transition:leave-end="slide-leave-left-active"
+      >
+        <div class="header">
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              margin-top: -17px;
+              padding-bottom: 20px;
+              width: 100%;
+            "
+          >
+            <button
+              class="back-btn"
+              @click="currentScreen = 'passenger'; direction = 'left'"
+            >
+              <span class="material-symbols-outlined"> arrow_back </span>
+            </button>
+            <span class="material-symbols-outlined"> more_vert </span>
+          </div>
+
+          <h1 style="padding-bottom: 15px">Create Client Account</h1>
+        </div>
+        <div class="content">
+          <input type="text" class="input-field" placeholder="Full Name" />
+          <input type="email" class="input-field" placeholder="Email" />
+          <input type="password" class="input-field" placeholder="Password" />
+          <input type="number" class="input-field" placeholder="Age" />
+          <input
+            type="password"
+            class="input-field"
+            placeholder="Confirm Password"
+          />
+          <div class="button-container">
+            <button
+              class="btn"
+              @click="currentScreen = 'passengerDashboard'; direction = 'right'"
+            >
+              Sign Up
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Rider Signup Screen -->
+      <div
+        class="screen"
+        x-show="currentScreen === 'riderSignup'"
+        x-transition:enter="slide-enter-right slide-enter-right-active"
+        x-transition:enter-start="slide-enter-right"
+        x-transition:enter-end="slide-enter-right-active"
+        x-transition:leave="slide-leave-left slide-leave-left-active"
+        x-transition:leave-start="slide-leave-left"
+        x-transition:leave-end="slide-leave-left-active"
+      >
+        <div class="header">
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              margin-top: -17px;
+              padding-bottom: 20px;
+              width: 100%;
+            "
+          >
+            <button
+              class="back-btn"
+              @click="currentScreen = 'rider'; direction = 'left'"
+            >
+              <span class="material-symbols-outlined"> arrow_back </span>
+            </button>
+            <span class="material-symbols-outlined"> more_vert </span>
+          </div>
+
+          <h1 style="padding: 15px 0">Create Service Provider Account</h1>
+        </div>
+        <div class="content">
+          <input type="text" class="input-field" placeholder="Full Name" />
+          <input type="text" class="input-field" placeholder="Phone Number" />
+          <input type="password" class="input-field" placeholder="Password" />
+          <input type="password" class="input-field" placeholder="Service" />
+          <input
+            type="password"
+            class="input-field"
+            placeholder="Confirm Password"
+          />
+          <!-- <select -->
+          <!--   id="license" -->
+          <!--   class="bg-white border border-gray-300 text-gray-400 text-md rounded-md focus:ring-blue-500 focus:border-blue-500 block p-4 " -->
+          <!-- > -->
+          <!-- <select name="" id="" style="background: white; color: gray"> -->
+          <!--   <option selected>Driver's License</option> -->
+          <!--   <option value="professional">Professional</option> -->
+          <!--   <option value="non-professional">Non-Professional</option> -->
+          <!--   <option value="none">None</option> -->
+          <!-- </select> -->
+          <div class="button-container">
+            <button
+              class="btn"
+              @click="currentScreen = 'riderDashboard'; direction = 'right'"
+            >
+              Sign Up
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Passenger Dashboard Screen -->
+      <div
+        class="screen"
+        x-show="currentScreen === 'passengerDashboard'"
+        x-transition:enter="slide-enter-right slide-enter-right-active"
+        x-transition:enter-start="slide-enter-right"
+        x-transition:enter-end="slide-enter-right-active"
+        x-transition:leave="slide-leave-left slide-leave-left-active"
+        x-transition:leave-start="slide-leave-left"
+        x-transition:leave-end="slide-leave-left-active"
+      >
+        <div class="header">
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              margin-top: -17px;
+              padding-bottom: 20px;
+              width: 100%;
+            "
+          >
+            <button
+              class="back-btn"
+              @click="currentScreen = 'passenger'; direction = 'left'"
+            >
+              <span class="material-symbols-outlined"> arrow_back </span>
+            </button>
+            <span class="material-symbols-outlined"> more_vert </span>
+          </div>
+
+          <h1 style="padding: 15px 0">Client Dashboard</h1>
+        </div>
+        <div class="content">
+          <!-- <div id="passengerMap" class="map-container"></div> -->
+          <!-- <p style="padding-bottom: 14px; margin-top: -15px; width: 160px"> -->
+          <!--   Welcome to your passenger dashboard! -->
+          <!-- </p> -->
+          <div class="button-container" style="margin-top: 7px">
+            <button
+              class="btn"
+              @click="currentScreen = 'bookRide'; direction = 'right'"
+            >
+              Book a Service
+            </button>
+            <button
+              class="btn btn-outline"
+              @click="currentScreen = 'rideHistory'; direction = 'right'"
+            >
+              Payments and Ratings
+            </button>
+
+
+            <button
+              class="btn logout"
+              @click="currentScreen = 'welcome'; direction = 'left'"
+              style="background-color: #fc766d"
+            >
+              Logout
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Rider-not-valid -->
+      <!-- <div -->
+      <!--   class="screen" -->
+      <!--   x-show="currentScreen === 'ridernotvalid'" -->
+      <!--   x-transition:enter="slide-enter-right slide-enter-right-active" -->
+      <!--   x-transition:enter-start="slide-enter-right" -->
+      <!--   x-transition:enter-end="slide-enter-right-active" -->
+      <!--   x-transition:leave="slide-leave-left slide-leave-left-active" -->
+      <!--   x-transition:leave-start="slide-leave-left" -->
+      <!--   x-transition:leave-end="slide-leave-left-active" -->
+      <!-- > -->
+      <!--   <div class="header"> -->
+      <!--     <div -->
+      <!--       style=" -->
+      <!--         display: flex; -->
+      <!--         justify-content: space-between; -->
+      <!--         margin-top: -17px; -->
+      <!--         padding-bottom: 20px; -->
+      <!--         width: 100%; -->
+      <!--       " -->
+      <!--     > -->
+      <!--       <button -->
+      <!--         class="back-btn" -->
+      <!--         @click="currentScreen = 'rider'; direction = 'left'" -->
+      <!--       > -->
+      <!--         <span class="material-symbols-outlined"> arrow_back </span> -->
+      <!--       </button> -->
+      <!--       <span class="material-symbols-outlined"> more_vert </span> -->
+      <!--     </div> -->
+      <!---->
+      <!--     <h1 style="padding: 15px 0">Angkol Dashboard</h1> -->
+      <!--   </div> -->
+      <!--   <div class="content"> -->
+      <!--     <!-- <p style="padding-bottom: 14px; margin-top: -15px"> --> -->
+      <!--     <!--   Welcome to your rider dashboard! --> -->
+      <!--     <!-- </p> --> -->
+      <!--     <!-- <div id="riderMap" class="map-container"></div> --> -->
+      <!--     <iframe -->
+      <!--       src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d240.10433085342967!2d120.58144938653116!3d15.662589226276491!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3396cb23aaa68373%3A0xe6ca7f8412c81379!2sSt.%20Paul%20College%20of%20Technology%20Paniqui!5e0!3m2!1sen!2sus!4v1726909645507!5m2!1sen!2sus" -->
+      <!--       width="600" -->
+      <!--       height="450" -->
+      <!--       style="border: 0" -->
+      <!--       allowfullscreen="" -->
+      <!--       loading="lazy" -->
+      <!--       referrerpolicy="no-referrer-when-downgrade" -->
+      <!--     ></iframe> -->
+      <!--     <div class="button-container"> -->
+      <!--       <button -->
+      <!--         class="btn primary" -->
+      <!--         hx-post="/modal" -->
+      <!--         hx-target="body" -->
+      <!--         hx-swap="beforeend" -->
+      <!--         hx-trigger="click" -->
+      <!--         onclick="showModal()" -->
+      <!--       > -->
+      <!--         Submit to verify -->
+      <!--       </button> -->
+      <!--       <p style="padding-bottom: 14px; margin-top: -15px"> -->
+      <!--         You need to submit necessay documents to fully verified Angkol -->
+      <!--         rider. -->
+      <!--       </p> -->
+      <!--     </div> -->
+      <!--   </div> -->
+      <!-- </div> -->
+
+      <!-- modal -->
+
+      <!-- <div id="ridermodal" -->
+      <!--   hx-trigger="click" -->
+      <!--   onclick="closeModal()" -->
+      <!-- > -->
+      <!--   <div -->
+      <!--     id="modal" -->
+      <!--     _="on closeModal add .closing then wait for animationend then remove me" -->
+      <!--   > -->
+      <!--     <div class="modal-underlay" _="on click trigger closeModal"></div> -->
+      <!--     <div class="modal-content" style="height: 70%; gap: 30px;"> -->
+      <!--       <h1 style="font-size: 1rem;">Angkol Rider Requirements</h1> -->
+      <!--       <ul style="line-height: 1.8; font-size: 1rem; padding-bottom: 20px; font-weight: normal; padding-left: 10px;"> -->
+      <!--         <li>Driver's License</li> -->
+      <!--         <li>OR/CR</li> -->
+      <!--         <li>Tricycle Registered number</li> -->
+      <!--         <li>NBI/Police Clearance</li> -->
+      <!--       </ul> -->
+      <!--       <br /> -->
+      <!--       <br /> -->
+      <!--       <button style="width: 200px;" -->
+      <!--         class="btn danger" -->
+      <!--         _="on click trigger closeModal" -->
+      <!--         onclick="closeModal()" -->
+      <!--       > -->
+      <!--         Close -->
+      <!--       </button> -->
+      <!--     </div> -->
+      <!--   </div> -->
+      <!-- </div> -->
+
+      <!-- Rider Dashboard Screen -->
+      <div
+        class="screen"
+        x-show="currentScreen === 'riderDashboard'"
+        x-transition:enter="slide-enter-right slide-enter-right-active"
+        x-transition:enter-start="slide-enter-right"
+        x-transition:enter-end="slide-enter-right-active"
+        x-transition:leave="slide-leave-left slide-leave-left-active"
+        x-transition:leave-start="slide-leave-left"
+        x-transition:leave-end="slide-leave-left-active"
+      >
+        <div class="header">
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              margin-top: -17px;
+              padding-bottom: 20px;
+              width: 100%;
+            "
+          >
+            <button
+              class="back-btn"
+              @click="currentScreen = 'rider'; direction = 'left'"
+            >
+              <span class="material-symbols-outlined"> arrow_back </span>
+            </button>
+            <span class="material-symbols-outlined"> more_vert </span>
+          </div>
+
+          <h1 style="padding: 15px 0">Service Provider Dashboard</h1>
+        </div>
+        <div class="content">
+          <!-- <p style="padding-bottom: 14px; margin-top: -15px"> -->
+          <!--   Welcome to your rider dashboard! -->
+          <!-- </p> -->
+          <!-- <div id="riderMap" class="map-container"></div> -->
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d240.10433085342967!2d120.58144938653116!3d15.662589226276491!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3396cb23aaa68373%3A0xe6ca7f8412c81379!2sSt.%20Paul%20College%20of%20Technology%20Paniqui!5e0!3m2!1sen!2sus!4v1726909645507!5m2!1sen!2sus"
+            width="600"
+            height="450"
+            style="border: 0"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+          ></iframe>
+          <div class="button-container">
+            <button
+              class="btn"
+              @click="currentScreen = 'availableRides'; direction = 'right'"
+            >
+              View Available Jobs
+            </button>
+
+            <button
+              class="btn btn-outline"
+              @click="currentScreen = 'earnings'; direction = 'right'"
+            >
+              View Earnings
+            </button>
+            <button
+              class="btn logout"
+              @click="currentScreen = 'welcome'; direction = 'left'"
+              style="background-color: #fc766d"
+            >
+              Logout
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Book Ride Screen -->
+      <div
+        class="screen"
+        x-show="currentScreen === 'bookRide'"
+        x-transition:enter="slide-enter-right slide-enter-right-active"
+        x-transition:enter-start="slide-enter-right"
+        x-transition:enter-end="slide-enter-right-active"
+        x-transition:leave="slide-leave-left slide-leave-left-active"
+        x-transition:leave-start="slide-leave-left"
+        x-transition:leave-end="slide-leave-left-active"
+      >
+        <div class="header">
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              margin-top: -17px;
+              padding-bottom: 20px;
+              width: 100%;
+            "
+          >
+            <button
+              class="back-btn"
+              @click="currentScreen = 'passengerDashboard'; direction = 'left'"
+            >
+              <span class="material-symbols-outlined"> arrow_back </span>
+            </button>
+            <span class="material-symbols-outlined"> more_vert </span>
+          </div>
+
+          <h1 style="padding: 15px 0">Book a Service</h1>
+        </div>
+        <div class="content">
+          <p>Our services:</p>
+          <div style="padding: 10px; display: flex; flex-direction: column; height: 100%; width: 100%; gap: 10px;">
+            <button style="padding: 10px; border-radius: 5px; ">Cleaning</button>
+            <button style="padding: 10px; border-radius: 5px; ">Handyman</button>
+            <button style="padding: 10px; border-radius: 5px; ">
+              Gardening | Groundskeeping
+            </button>
+            <button style="padding: 10px; border-radius: 5px; ">
+              Pest Control
+            </button>
+
+          </div>
+
+
+          <input
+            type="text"
+            class="input-field"
+            placeholder="Type the name of service here"
+          />
+          <input
+            type="text"
+            class="input-field"
+            placeholder="Location"
+          />
+          <div class="button-container">
+            <button
+              class="btn"
+              @click="currentScreen = 'confirmRide'; direction = 'right'"
+            >
+              Find Service Providers
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Confirm Ride Screen -->
+      <div
+        class="screen"
+        x-show="currentScreen === 'confirmRide'"
+        x-transition:enter="slide-enter-right slide-enter-right-active"
+        x-transition:enter-start="slide-enter-right"
+        x-transition:enter-end="slide-enter-right-active"
+        x-transition:leave="slide-leave-left slide-leave-left-active"
+        x-transition:leave-start="slide-leave-left"
+        x-transition:leave-end="slide-leave-left-active"
+      >
+        <div class="header">
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              margin-top: -17px;
+              padding-bottom: 20px;
+              width: 100%;
+            "
+          >
+            <button
+              class="back-btn"
+              @click="currentScreen = 'bookRide'; direction = 'left'"
+            >
+              <span class="material-symbols-outlined"> arrow_back </span>
+            </button>
+            <span class="material-symbols-outlined"> more_vert </span>
+          </div>
+
+          <h1 style="padding: 15px 0">Job Management</h1>
+        </div>
+        <div class="content">
+          <p>Service Details:</p>
+          <p>Location: [ Location]</p>
+          <!-- <p>Time: [Pick-up Time]</p> -->
+          <!-- <p>Estimated Fare: ₱50-70</p> -->
+          <div class="button-container">
+            <button
+              class="btn"
+              @click="currentScreen = 'rideBooked'; direction = 'right'"
+            >
+              Confirm
+            </button>
+            <button
+              class="btn btn-outline"
+              @click="currentScreen = 'bookRide'; direction = 'left'"
+            >
+              Edit
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ride Booked Screen -->
+      <div
+        class="screen"
+        x-show="currentScreen === 'rideBooked'"
+        x-transition:enter="slide-enter-right slide-enter-right-active"
+        x-transition:enter-start="slide-enter-right"
+        x-transition:enter-end="slide-enter-right-active"
+        x-transition:leave="slide-leave-left slide-leave-left-active"
+        x-transition:leave-start="slide-leave-left"
+        x-transition:leave-end="slide-leave-left-active"
+      >
+        <div class="header">
+          <h1 style="padding: 15px 0">Service is on the way!</h1>
+        </div>
+        <div class="content">
+          <p>Your service has been successfully booked!</p>
+          <p>Service Provider: Juan Dela Cruz</p>
+          <p>Estimated Arrival: 30 minutes</p>
+          <div class="button-container">
+            <button
+              class="btn"
+              @click="currentScreen = 'passengerDashboard'; direction = 'left'"
+            >
+              Back to Dashboard
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ride History Screen -->
+      <div
+        class="screen"
+        x-show="currentScreen === 'rideHistory'"
+        x-transition:enter="slide-enter-right slide-enter-right-active"
+        x-transition:enter-start="slide-enter-right"
+        x-transition:enter-end="slide-enter-right-active"
+        x-transition:leave="slide-leave-left slide-leave-left-active"
+        x-transition:leave-start="slide-leave-left"
+        x-transition:leave-end="slide-leave-left-active"
+      >
+        <div class="header">
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              margin-top: -17px;
+              padding-bottom: 20px;
+              width: 100%;
+            "
+          >
+            <button
+              class="back-btn"
+              @click="currentScreen = 'passengerDashboard'; direction = 'left'"
+            >
+              <span class="material-symbols-outlined"> arrow_back </span>
+            </button>
+            <span class="material-symbols-outlined"> more_vert </span>
+          </div>
+
+          <h1 style="padding: 15px 0">Payments and Ratings</h1>
+        </div>
+        <div class="content">
+          <div style="width: 100%; overflow-y: auto">
+            <div style="border-bottom: 1px solid #ddd; padding: 10px 0">
+              <p>Date: 2023-09-20</p>
+              <p>Service: Deep Cleaning</p>
+              <p>Service Provider: Juan Dela Cruz</p>
+              <p>: ₱60</p>
+            </div>
+            <!-- Add more ride history items as needed -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Available Rides Screen (for Riders) -->
+      <div
+        class="screen"
+        x-show="currentScreen === 'availableRides'"
+        x-transition:enter="slide-enter-right slide-enter-right-active"
+        x-transition:enter-start="slide-enter-right"
+        x-transition:enter-end="slide-enter-right-active"
+        x-transition:leave="slide-leave-left slide-leave-left-active"
+        x-transition:leave-start="slide-leave-left"
+        x-transition:leave-end="slide-leave-left-active"
+      >
+        <div class="header">
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              margin-top: -17px;
+              padding-bottom: 20px;
+              width: 100%;
+            "
+          >
+            <button
+              class="back-btn"
+              @click="currentScreen = 'riderDashboard'; direction = 'left'"
+            >
+              <span class="material-symbols-outlined"> arrow_back </span>
+            </button>
+            <span class="material-symbols-outlined"> more_vert </span>
+          </div>
+          <h1 style="padding: 15px 0">Available </h1>
+        </div>
+        <div class="content">
+          <div style="width: 100%; overflow-y: auto">
+            <div style="border-bottom: 1px solid #ddd; padding: 10px 0">
+              <p>Service: Cleaning</p>
+              <p>Location: Tarlac</p>
+              <button
+                class="btn"
+                style="width: auto; padding: 5px 10px; font-size: 14px"
+              >
+                Accept
+              </button>
+            </div>
+            <div style="border-bottom: 1px solid #ddd; padding: 10px 0">
+              <p>Service: Handyman</p>
+              <p>Location: Paniqui</p>
+              <p>Estimated Payment: ₱50</p>
+              <button
+                class="btn"
+                style="width: auto; padding: 5px 10px; font-size: 14px"
+              >
+                Accept
+              </button>
+            </div>
+            <!-- Add more available rides as needed -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Earnings Screen (for Riders) -->
+      <div
+        class="screen"
+        x-show="currentScreen === 'earnings'"
+        x-transition:enter="slide-enter-right slide-enter-right-active"
+        x-transition:enter-start="slide-enter-right"
+        x-transition:enter-end="slide-enter-right-active"
+        x-transition:leave="slide-leave-left slide-leave-left-active"
+        x-transition:leave-start="slide-leave-left"
+        x-transition:leave-end="slide-leave-left-active"
+      >
+        <div class="header">
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              margin-top: -17px;
+              padding-bottom: 20px;
+              width: 100%;
+            "
+          >
+            <button
+              class="back-btn"
+              @click="currentScreen = 'riderDashboard'; direction = 'left'"
+            >
+              <span class="material-symbols-outlined"> arrow_back </span>
+            </button>
+            <span class="material-symbols-outlined"> more_vert </span>
+          </div>
+
+          <h1 style="padding: 15px 0">Earnings</h1>
+        </div>
+        <div class="content">
+          <h2>Total Earnings: ₱1,250</h2>
+          <p>This Week: ₱450</p>
+          <p>This Month: ₱1,250</p>
+          <div style="width: 100%; overflow-y: auto; margin-top: 20px">
+            <h3>Recent Transactions</h3>
+            <div style="border-bottom: 1px solid #ddd; padding: 10px 0">
+              <p>Date: 2023-09-20</p>
+              <p> ₱60</p>
+            </div>
+            <div style="border-bottom: 1px solid #ddd; padding: 10px 0">
+              <p>Date: 2023-09-19</p>
+              <p> ₱45</p>
+            </div>
+            <!-- Add more transaction items as needed -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function initMap(mapId, lat, lng) {
+        const map = new google.maps.Map(document.getElementById(mapId), {
+          center: { lat: lat, lng: lng },
+          zoom: 14,
+        });
+        new google.maps.Marker({
+          position: { lat: lat, lng: lng },
+          map: map,
+        });
+      }
+
+      document.addEventListener("alpine:initialized", () => {
+        // Paniqui, Tarlac coordinates
+        const paniquiLat = 15.6667;
+        const paniquiLng = 120.5833;
+
+        initMap("passengerMap", paniquiLat, paniquiLng);
+        initMap("riderMap", paniquiLat, paniquiLng);
+        initMap("bookRideMap", paniquiLat, paniquiLng);
+      });
+
+      document.body.addEventListener("htmx:afterSwap", function (event) {
+        if (event.detail.target.id === "modal") {
+          event.detail.target.style.display = "flex";
+        }
+      });
+
+      function showModal() {
+        const modal = document.getElementById("modal");
+        if (modal) {
+          modal.style.display = "flex";
+        } else {
+          console.error("Modal element not found");
+        }
+      }
+
+      function closeModal() {
+        const modal = document.getElementById("modal");
+        if (modal) {
+          modal.style.display = "none";
+        } else {
+          console.error("Modal element not found");
+        }
+      }
+
+      // Close modal when clicking outside
+      // document.addEventListener("click", function (event) {
+      //   const modal = document.getElementById("modal");
+      //   const modalContent = document.querySelector(".modal-content");
+      //
+      //   if (modal && modalContent) {
+      //     if (
+      //       modal.style.display === "flex" &&
+      //       !modalContent.contains(event.target) &&
+      //       event.target !== modalContent
+      //     ) {
+      //       closeModal();
+      //     }
+      //   }
+      // });
+
+      // Close modal when pressing Escape key
+      // document.addEventListener("keydown", function (event) {
+      //   if (event.key === "Escape") {
+      //     closeModal();
+      //   }
+      // });
+    </script>
+  </body>
+</html>
